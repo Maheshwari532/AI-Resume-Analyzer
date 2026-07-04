@@ -1,4 +1,4 @@
-# Scanline — AI Resume Analyser
+# AI Resume Analyser
 
 A Flask + HTML/CSS/JS web app that analyses resumes (PDF, DOCX, TXT) the way an ATS would: it checks contact info, section structure, skills coverage, bullet/action-verb usage, and — if you paste a job description — keyword match against that specific role.
 
