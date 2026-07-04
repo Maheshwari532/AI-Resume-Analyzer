@@ -1,4 +1,4 @@
-# AI Resume Analyser
+# Scanline — AI Resume Analyser
 
 A Flask + HTML/CSS/JS web app that analyses resumes (PDF, DOCX, TXT) the way an ATS would: it checks contact info, section structure, skills coverage, bullet/action-verb usage, and — if you paste a job description — keyword match against that specific role.
 
@@ -51,6 +51,27 @@ judging tone, or scoring against a specific company's culture), you can add
 a call to the Anthropic API inside `analyze()` in `app.py`, sending the
 extracted resume text and job description to Claude and merging its
 response into the JSON returned to the frontend.
+
+## Deploying to Vercel
+
+This repo includes a `vercel.json` that routes all traffic to the Flask app. Steps:
+
+```bash
+npm i -g vercel      # if you don't have the CLI
+cd resume-analyzer
+vercel
+```
+
+Things that are already handled for you, because they're the most common causes of a 500 on Vercel:
+
+- **Read-only filesystem**: Vercel's serverless functions can only write to `/tmp`. Uploaded files are now saved via `tempfile.gettempdir()` instead of a local `uploads/` folder.
+- **Request body size limit**: Vercel's Hobby tier caps request bodies around 4.5MB. The upload cap is set to 4MB so you get a clean error instead of a platform-level rejection.
+- **Unhandled exceptions**: a global error handler returns a JSON error message and logs the real exception (visible in your Vercel deployment's **Logs** tab) instead of a bare crash.
+
+If you still see a 500 after deploying, check **Vercel dashboard → your project → Deployments → (latest) → Functions/Logs** for the actual Python traceback — that will tell you exactly what failed. Common remaining causes:
+- A missing dependency in `requirements.txt` (redeploy after any changes there)
+- The function timing out on a large PDF (Hobby tier has a 10s execution limit)
+- Cold-start install size — `pdfplumber` pulls in Pillow/pdfminer.six; if the bundle exceeds Vercel's size limit, switching to a lighter PDF library (e.g. `pypdf`) can help
 
 ## Notes
 - Scanned/image-only PDFs won't extract text (no OCR is included). Use a text-based PDF or DOCX export instead.

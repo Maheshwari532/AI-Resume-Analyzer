@@ -55,8 +55,8 @@ function handleFile(file) {
     showError('Please upload a PDF, DOCX, or TXT file.');
     return;
   }
-  if (file.size > 8 * 1024 * 1024) {
-    showError('File is too large. Max size is 8MB.');
+  if (file.size > 4 * 1024 * 1024) {
+    showError('File is too large. Max size is 4MB.');
     return;
   }
   selectedFile = file;

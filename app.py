@@ -22,6 +22,8 @@ import os
 import re
 import io
 import uuid
+import logging
+import tempfile
 
 from flask import Flask, request, jsonify, render_template
 from werkzeug.utils import secure_filename
@@ -30,10 +32,28 @@ import pdfplumber
 import docx  # python-docx
 
 app = Flask(__name__)
-app.config["MAX_CONTENT_LENGTH"] = 8 * 1024 * 1024  # 8 MB upload cap
-UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), "uploads")
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Vercel (and most serverless hosts) enforce a request body limit around 4.5MB
+# on the Hobby tier, and only /tmp is writable at runtime -- everything else in
+# the deployment bundle is read-only. Using tempfile.gettempdir() keeps this
+# working locally too (it just resolves to your OS temp dir).
+app.config["MAX_CONTENT_LENGTH"] = 4 * 1024 * 1024  # 4 MB upload cap
+UPLOAD_FOLDER = os.environ.get("UPLOAD_FOLDER", tempfile.gettempdir())
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 ALLOWED_EXTENSIONS = {"pdf", "docx", "txt"}
+
+
+@app.errorhandler(413)
+def too_large(e):
+    return jsonify({"error": "File is too large. Max size is 4MB."}), 413
+
+
+@app.errorhandler(500)
+def server_error(e):
+    logger.exception("Unhandled server error")
+    return jsonify({"error": "Something went wrong on our end while analyzing that file. Please try again."}), 500
 
 
 # --------------------------------------------------------------------------
