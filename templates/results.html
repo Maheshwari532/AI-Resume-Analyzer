@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Resume Analysis Results</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ============================= -->
+    <!-- Navigation Bar -->
+    <!-- ============================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            AI Resume Analyzer
+        </div>
+
+    </header>
+
+
+    <!-- ============================= -->
+    <!-- Main Content -->
+    <!-- ============================= -->
+
+    <main class="results-container">
+
+
+        <!-- ============================= -->
+        <!-- Header -->
+        <!-- ============================= -->
+
+        <section class="results-header">
+
+            <h1>
+                Resume Analysis Results
+            </h1>
+
+            <p>
+                Here is the analysis of your resume based on resume quality
+                and semantic job matching.
+            </p>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- Main Scores -->
+        <!-- ============================= -->
+
+        <section class="score-grid">
+
+
+            <!-- Resume Score -->
+
+            <div class="score-card">
+
+                <h3>
+                    Resume Score
+                </h3>
+
+                <div
+                    class="score-number"
+                    id="resumeScore"
+                >
+                    --
+                </div>
+
+                <p>
+                    Overall resume quality
+                </p>
+
+            </div>
+
+
+            <!-- AI Job Match -->
+
+            <div class="score-card">
+
+                <h3>
+                    AI Job Match
+                </h3>
+
+                <div
+                    class="score-number"
+                    id="jobMatch"
+                >
+                    --
+                </div>
+
+                <p>
+                    Semantic similarity with job description
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- Resume Statistics -->
+        <!-- ============================= -->
+
+        <section class="result-section">
+
+            <h2>
+                Resume Statistics
+            </h2>
+
+
+            <div class="stats-grid">
+
+
+                <!-- Word Count -->
+
+                <div class="stat-card">
+
+                    <span id="wordCount">
+                        0
+                    </span>
+
+                    <p>
+                        Words
+                    </p>
+
+                </div>
+
+
+                <!-- Bullet Count -->
+
+                <div class="stat-card">
+
+                    <span id="bulletCount">
+                        0
+                    </span>
+
+                    <p>
+                        Bullet Points
+                    </p>
+
+                </div>
+
+
+                <!-- Action Verbs -->
+
+                <div class="stat-card">
+
+                    <span id="actionVerbs">
+                        0
+                    </span>
+
+                    <p>
+                        Action Verbs
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- Contact Information -->
+        <!-- ============================= -->
+
+        <section class="result-section">
+
+            <h2>
+                Contact Information
+            </h2>
+
+            <div
+                id="contactInfo"
+                class="contact-list"
+            >
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- Resume Sections -->
+        <!-- ============================= -->
+
+        <section class="result-section">
+
+            <h2>
+                Resume Sections
+            </h2>
+
+            <div
+                id="sectionsList"
+                class="sections-list"
+            >
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- Detected Skills -->
+        <!-- ============================= -->
+
+        <section class="result-section">
+
+            <h2>
+                Detected Skills
+            </h2>
+
+            <div
+                id="skillsList"
+                class="skills-container"
+            >
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- Job Description Skill Analysis -->
+        <!-- ============================= -->
+
+        <section class="result-section">
+
+            <h2>
+                Job Description Skill Analysis
+            </h2>
+
+
+            <!-- Matched Skills -->
+
+            <h3>
+                Matched Skills
+            </h3>
+
+            <div
+                id="matchedSkills"
+                class="skills-container"
+            >
+            </div>
+
+
+            <!-- Missing Skills -->
+
+            <h3 class="missing-title">
+                Missing Skills
+            </h3>
+
+            <div
+                id="missingSkills"
+                class="skills-container"
+            >
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- AI Resume Improvement Suggestions -->
+        <!-- ============================= -->
+
+        <section class="result-section">
+
+            <h2>
+                🤖 AI Resume Improvement Suggestions
+            </h2>
+
+            <div
+                id="aiSuggestions"
+                class="ai-suggestions"
+            >
+                Loading AI suggestions...
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- Analyze Another Resume -->
+        <!-- ============================= -->
+
+        <div class="back-button-container">
+
+            <a
+                href="/"
+                class="back-button"
+            >
+                Analyze Another Resume
+            </a>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- ============================= -->
+    <!-- JavaScript -->
+    <!-- ============================= -->
+
+    <script src="{{ url_for('static', filename='js/results.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Resume Analyzer</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">AI Resume Analyzer</div>
+    </header>
+
+    <main class="container">
+
+        <section class="hero">
+            <h1>AI Resume Analyzer</h1>
+
+            <p>
+                Analyze your resume and compare it with a job description
+                using AI-powered semantic matching.
+            </p>
+        </section>
+
+
+        <section class="analyzer-card">
+
+            <form id="resumeForm">
+
+                <div class="form-group">
+
+                    <label for="resume">
+                        Upload Your Resume
+                    </label>
+
+                    <input
+                        type="file"
+                        id="resume"
+                        name="resume"
+                        accept=".pdf,.docx,.txt"
+                        required
+                    >
+
+                    <small>
+                        Supported formats: PDF, DOCX, TXT
+                    </small>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="job_description">
+                        Job Description
+                    </label>
+
+                    <textarea
+                        id="job_description"
+                        name="job_description"
+                        rows="10"
+                        placeholder="Paste the job description here..."
+                    ></textarea>
+
+                </div>
+
+
+                <button type="submit" id="analyzeBtn">
+                    Analyze Resume
+                </button>
+
+            </form>
+
+
+            <div id="loading" class="hidden">
+                Analyzing your resume...
+            </div>
+
+            <div id="message"></div>
+
+        </section>
+
+    </main>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

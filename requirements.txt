@@ -1,0 +1,9 @@
+Flask
+pdfplumber
+python-docx
+sentence-transformers
+scikit-learn
+numpy
+torch
+transformers
+sentencepiece
